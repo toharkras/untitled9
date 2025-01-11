@@ -1,5 +1,5 @@
 
-import { ref, onValue, off } from 'firebase/database';  // הוספת onValue
+import { ref, onValue, off } from 'firebase/database';
 import {database}  from './FirebaseDB';
 import React, { useState, useEffect } from 'react';
 import './CartPage.css';
@@ -9,19 +9,18 @@ const CartPage = () => {
     const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
-        const cartRef = ref(database, 'cart'); // הפנייה ל-Firebase
+        const cartRef = ref(database, 'cart');
         console.log('useEffect is running. Listening to cart changes...');
 
         // מאזין לשינויים בעגלה
         const handleCartChange = (snapshot) => {
-            console.log('Firebase snapshot:', snapshot.val()); // הדפס את הנתונים שהתקבלו מ-Firebase
-            const cartData = snapshot.val(); // מקבל את המידע מה-Firebase
+            console.log('Firebase snapshot:', snapshot.val());
+            const cartData = snapshot.val();
             if (cartData) {
-                const items = Object.values(cartData); // הופך את המידע למערך
-                console.log('Cart items:', items); // הדפס את המוצרים בעגלה
-                setCartItems(items); // עדכון המצב (state) עם המוצרים בעגלה
+                const items = Object.values(cartData);
+                console.log('Cart items:', items);
+                setCartItems(items);
 
-                // חישוב מחיר כולל
                 const total = items.reduce((sum, item) => sum + parseFloat(item.price), 0);
                 setTotalPrice(total.toFixed(2));
             } else {
@@ -31,15 +30,13 @@ const CartPage = () => {
             }
         };
 
-        // האזנה למידע על המוצרים בעגלה
         onValue(cartRef, handleCartChange);
 
-        // ניקוי המאזין על-מנת למנוע בעיות בזיכרון
         return () => {
             console.log('Cleaning up listener');
             off(cartRef, 'value', handleCartChange);  // וודא שאתה מבטל את המאזין
         };
-    }, []);  // התבצע פעם אחת עם טעינת הרכיב
+    }, []);
 
     return (
         <div className="cart-page">
@@ -61,7 +58,7 @@ const CartPage = () => {
                     <div className="total-price">
                         <h2>Total Price: ₪{totalPrice}</h2>
                     </div>
-                    <button disabled>Checkout</button> {/* כפתור קנייה */}
+                    <button disabled>Checkout</button> {}
                 </div>
             )}
         </div>

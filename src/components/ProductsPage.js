@@ -11,7 +11,7 @@ const ProductsPage = () => {
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [maxPrice, setMaxPrice] = useState(100);
-    const [cartCount, setCartCount] = useState(0); // מספר פריטים בעגלה
+    const [cartCount, setCartCount] = useState(0);
 
     useEffect(() => {
         // שליפת המוצרים מה-API
@@ -20,8 +20,8 @@ const ProductsPage = () => {
                 const fetchedProducts = response.data.map(show => ({
                     id: show.id,
                     name: show.name,
-                    image: show.image ? show.image.medium : '', // תמונה אם קיימת
-                    price: (Math.random() * 100).toFixed(2), // מחיר אקראי בין 0 ל-100
+                    image: show.image ? show.image.medium : '',
+                    price: (Math.random() * 100).toFixed(2),
                 }));
                 setProducts(fetchedProducts);
                 setFilteredProducts(fetchedProducts);
@@ -30,7 +30,6 @@ const ProductsPage = () => {
                 console.error("Error fetching products:", error);
             });
 
-        // עדכון מספר המוצרים בעגלה
         const cartRef = ref(database, 'cart'); // נתיב נכון
         onValue(cartRef, snapshot => {
             const cartData = snapshot.val();
@@ -48,7 +47,7 @@ const ProductsPage = () => {
     };
 
     const addToCart = (product) => {
-        const cartRef = ref(database, 'cart'); // נתיב לעגלה ב-Firebase
+        const cartRef = ref(database, 'cart');
         push(cartRef, product)  // הוספת המוצר לעגלה
             .then(() => {
                 console.log("Product added to cart successfully!");
@@ -57,7 +56,7 @@ const ProductsPage = () => {
                 console.error("Error adding product to cart:", error);
             });
 
-        alert("Product added to cart!");  // הודעת אישור
+        alert("Product added to cart!");
     };
 
 
