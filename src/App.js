@@ -1,15 +1,18 @@
+
+
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import {  } from "react-router-dom";
+
 import ProductsPage from './components/ProductsPage';
 import CartPage from './components/CartPage';
+import Navbar from "./components/NavBar";
 
 function App() {
+
     return (
         <Router>
-            <div className="navbar">
-                <h1 style={{ color: '#bb4ecc' }}>TOHAR & GAL SERIOUS SHOP</h1> {/* כותרת אחת בלבד */}
-                <Link to="/cart">Go to Cart</Link>
-            </div>
+            <Navbar />
 
             <Routes>
                 <Route path="/" element={<ProductsPage />} />
