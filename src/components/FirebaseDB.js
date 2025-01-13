@@ -14,6 +14,6 @@ const firebaseConfig = {
         measurementId: "G-792XH0HZG5"
 };
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app); // אתחול Firebase Database
+const database = getDatabase(app);
 
 export { database, ref, push };

@@ -12,7 +12,6 @@ const CartPage = () => {
         const cartRef = ref(database, 'cart');
         console.log('useEffect is running. Listening to cart changes...');
 
-        // מאזין לשינויים בעגלה
         const handleCartChange = (snapshot) => {
             console.log('Firebase snapshot:', snapshot.val());
             const cartData = snapshot.val();
@@ -34,7 +33,7 @@ const CartPage = () => {
 
         return () => {
             console.log('Cleaning up listener');
-            off(cartRef, 'value', handleCartChange);  // וודא שאתה מבטל את המאזין
+            off(cartRef, 'value', handleCartChange);
         };
     }, []);
 

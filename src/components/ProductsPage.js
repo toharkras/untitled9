@@ -14,7 +14,6 @@ const ProductsPage = () => {
     const [cartCount, setCartCount] = useState(0);
 
     useEffect(() => {
-        // שליפת המוצרים מה-API
         axios.get('https://api.tvmaze.com/shows')
             .then(response => {
                 const fetchedProducts = response.data.map(show => ({
@@ -30,7 +29,7 @@ const ProductsPage = () => {
                 console.error("Error fetching products:", error);
             });
 
-        const cartRef = ref(database, 'cart'); // נתיב נכון
+        const cartRef = ref(database, 'cart');
         onValue(cartRef, snapshot => {
             const cartData = snapshot.val();
             if (cartData) {
@@ -48,7 +47,7 @@ const ProductsPage = () => {
 
     const addToCart = (product) => {
         const cartRef = ref(database, 'cart');
-        push(cartRef, product)  // הוספת המוצר לעגלה
+        push(cartRef, product)
             .then(() => {
                 console.log("Product added to cart successfully!");
             })
